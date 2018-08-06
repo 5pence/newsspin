@@ -38,6 +38,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'newsspiner.apps.NewsspinerConfig',
+    'blog',
+    'tickets',
+    'transactions',
+    'users',
 ]
 
 MIDDLEWARE = [
