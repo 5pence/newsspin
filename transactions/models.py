@@ -11,3 +11,4 @@ class Transaction(models.Model):
     text = models.TextField()
     created_date = models.DateTimeField(
         default=timezone.now)
+    amount = models.IntegerField(null=True, blank=True)
