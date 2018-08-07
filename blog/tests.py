@@ -1,3 +1,6 @@
 from django.test import TestCase
+from blog.models import Post
 
-# Create your tests here.
+
+class TestBlog(TestCase):
+    def test_create_post(self):
