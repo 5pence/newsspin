@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container-fluid">
+    <div class="row">
+        <div class="col-xs-12 col-md-6">
+            {% for ticket in features %}
+                <div class="post">
+                    <div class="date">
+                        {{ ticket.created_date }}
+                    </div>
+                    <h1><a href="">{{ ticket.title }}</a></h1>
+                    <p>{{ ticket.text|linebreaksbr }}</p>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="col-xs-12 col-md-6">
+            {% for ticket, voted in bugs %}
+            <div class="post">
+                <div class="date">
+                    {{ ticket.created_date }}
+                </div>
+                <h1><a href="">{{ ticket.title }}</a></h1>
+                <p>{{ ticket.text|linebreaksbr }}</p>
+                {% if voted %}
+                    <p>Already Voted</p>
+                {% else %}
+                    <a class="btn btn-info" href="{%  url 'ticket_vote' %}?id={{ ticket.id }}">Upvote</a>
+                {% endif %}
+            </div>
+        {% endfor %}
+        </div>
+    </div>
+    </div>
+{% endblock %}

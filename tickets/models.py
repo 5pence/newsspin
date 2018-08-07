@@ -21,11 +21,17 @@ class Ticket(models.Model):
     author = models.ForeignKey(User, on_delete=models.DO_NOTHING)
     title = models.CharField(max_length=200)
     text = models.TextField()
-    created_date = models.DateTimeField(
-            default=timezone.now)
-    completed_date = models.DateTimeField(
-            blank=True, null=True)
+    created_date = models.DateTimeField(default=timezone.now)
+    completed_date = models.DateTimeField(blank=True, null=True)
     ticket_status = models.CharField(max_length=5, choices=TICKET_STATUS_CHOICES, default=TODO)
     ticket_type = models.CharField(max_length=7, choices=TICKET_TYPE_CHOICES, default=FEATURE)
-    up_vote = models.IntegerField(null=True, blank=True)
+    votes = models.ManyToManyField(User, through='Vote', related_name='voter')
     money_raised = models.IntegerField(null=True, blank=True)
+
+
+class Vote(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    ticket = models.ForeignKey(Ticket, on_delete=models.CASCADE)
+    date_voted = models.DateTimeField(default=timezone.now)
+    class Meta:
+        unique_together = (('user', 'ticket'), )
